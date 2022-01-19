@@ -10,7 +10,6 @@ class DashboardController extends Controller
 {
     public function index(){
 
-        App::setLocale('ar');
 
         return view('dashboard.index');
 

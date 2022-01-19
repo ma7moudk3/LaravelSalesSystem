@@ -5,9 +5,20 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
 
-Route::prefix('dashboard')->group(function (){
+Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+    ], function(){
 
-    Route::get('/index',[DashboardController::class ,'index'])->name('dashboard.index');
+    Route::prefix('dashboard/')->name('dashboard.')->group(function (){
+
+        Route::get('index',[DashboardController::class ,'index'])->name('index');
+
+        //user route
+        Route::resource('users','UserController');
 
 
-});
+    });
+    });
+
